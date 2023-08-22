@@ -12,3 +12,6 @@ SITE_HOSTERS = ["david@damaie.com.tw"]
 SITE_TYPE = 1 // 0 or 1(公板)
 SITE_NAME = "Beyond School"
 COPYRIGHT = "Damaie"
+
+// Weight : SDGs, 人文地產景, 德智體群美
+WEIGHT = [1, 0, 0]
