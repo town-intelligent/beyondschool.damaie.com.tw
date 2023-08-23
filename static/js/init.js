@@ -1,5 +1,52 @@
 import { set_page_info } from './set_page_info.js'
 
+function add_navbar() {
+  $('#navbar').html(str_navbar)
+
+  // Visible
+  if (SITE_TYPE == 0) {
+    try {
+      $('#solution').css('display', 'block');
+      $('#contact_us').css('display', 'block');
+    } catch (e) { console.log(e) }
+  }
+
+  // Site Name
+  try {
+    $('#about_nav').text("關於 " + SITE_NAME)
+  } catch (e) { console.log(e) }
+
+
+  // Set navbar
+  var path = window.location.pathname;
+  var page = path.split("/").pop().split(".html")[0]
+  if (page === "")
+    page = "index"
+
+  var selector = "#" + page;
+  $(selector).addClass('active');
+}
+
+function add_footer() {
+  // str_footer
+  $('#footer').html(str_footer)
+
+  // Site Name
+  try {
+    $('#about_fot1').html("關於 " + SITE_NAME)
+    $('#about_fot2').html("關於 " + SITE_NAME)
+    $('#copyright').html("Copyright © 2023 " + COPYRIGHT)
+
+    // Visible
+    if (SITE_TYPE == 0) {
+      $('#solution_fot1').css('display', 'block');
+      $('#solution_fot2').css('display', 'block');
+      $('#contact_us_fot1').css('display', 'block');
+      $('#contact_us_fot2').css('display', 'block');
+    }
+  } catch (e) { console.log(e) }
+}
+
 function logout() {
   // Modify account
   var dataJSON = {};
@@ -45,13 +92,15 @@ function set_navbar_animation() {
 }
 
 function navbar(group) {
+  add_navbar()
+  add_footer()
   set_navbar_animation()
 
   // home logo href
   if (group == "200" || group == "201" ) {
-      document.getElementById("index_logo").href = 
+      document.getElementById("index_logo").href =
       "/backend/admin_agent_dashboard.html";
- 
+
     try {
       var obj_account_status = document.getElementById("account_status");
       for (const child of obj_account_status.children) {
@@ -60,11 +109,11 @@ function navbar(group) {
 
       var obj_a = document.createElement("a");
       obj_a.className = "nav-link fw-bold";
-      obj_a.href="javascript:void(0)" 
+      obj_a.href="javascript:void(0)"
       obj_a.onclick= function(e){
         logout()
       }
-    
+
 
       var obj_img = document.createElement("img");
       obj_img.className = "align-text-top";
@@ -75,7 +124,7 @@ function navbar(group) {
       obj_a.append(obj_img);
 
       obj_account_status.append(obj_a);
-    } catch(e) { console.log(e) } 
+    } catch(e) { console.log(e) }
   }
 }
 
@@ -87,3 +136,6 @@ var group = getLocalStorage("group");
 
 // navbar
 navbar(group);
+
+// footer
+add_footer();
